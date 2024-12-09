@@ -1,0 +1,28 @@
+version: '3.8'
+services:
+  postgres:
+    image: postgres
+    container_name: postgres-crud
+    environment:
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: postgres
+      POSTGRES_DB: crud_db
+    ports:
+      - "5432:5432" # Локальный порт для подключения
+    networks:
+      - pg_network
+
+  pgadmin:
+    image: dpage/pgadmin4
+    container_name: pgadmin
+    environment:
+      PGADMIN_DEFAULT_EMAIL: admin@example.com
+      PGADMIN_DEFAULT_PASSWORD: admin
+    ports:
+      - "8081:80" # Переназначение порта для pgAdmin
+    networks:
+      - pg_network
+
+networks:
+  pg_network:
+    driver: bridge
